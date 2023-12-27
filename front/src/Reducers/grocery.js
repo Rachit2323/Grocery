@@ -36,7 +36,6 @@ export const getgrocerydata = createAsyncThunk("getgrocerydata", async () => {
       },
     });
     const data = await result.json();
-
     return data;
   } catch (error) {
     return { error: error.message };
