@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const API = "http://localhost:4000/";
-// const API ="https://food-grocery-henna.vercel.app/";
+// const API = "http://localhost:4000/";
+const API ="https://grocery-delta-swart.vercel.app/";
 
 let initialState = {
   loading: false,

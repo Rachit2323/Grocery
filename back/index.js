@@ -8,9 +8,9 @@ const cloudinary = require("cloudinary");
 
 const groceryRoutes =require("./router/grocery.js");
 
-// const URI =
-//   "mongodb+srv://Rachit23:UhP8Iiyp4xxptvmM@cluster0.fgnb20h.mongodb.net/food";
-const URI="mongodb://localhost:27017/market";
+const URI =
+  "mongodb+srv://Rachit23:UhP8Iiyp4xxptvmM@cluster0.fgnb20h.mongodb.net/market";
+// const URI="mongodb://localhost:27017/market";
 
 cloudinary.v2.config({
   cloud_name: "dyedquiym",
@@ -20,7 +20,7 @@ cloudinary.v2.config({
 
 app.use(express.json({ limit: '50mb' }));
 
-const allowedOrigins = ["http://localhost:3000","https://food-receipe-g6mi.vercel.app"];
+const allowedOrigins = ["http://localhost:3000"];
 app.use(
   cors({
     credentials: true,
