@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const itemSchema = new mongoose.Schema({
   name: {
@@ -22,20 +22,21 @@ const itemSchema = new mongoose.Schema({
   },
   expiryDate: {
     type: Date,
-    default: null, 
+    default: null,
   },
   groceryPhoto: {
     secure_url: {
       type: String,
-      required: true,
+
+      default:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1XduSHpxPu5ozIZ_SCdsxOoQ_d8aIbGQNMw&usqp=CAU",
     },
     public_id: {
       type: String,
-      required: true,
     },
   },
 });
 
-const Grocery = mongoose.model('Item', itemSchema);
+const Grocery = mongoose.model("Item", itemSchema);
 
 module.exports = Grocery;

@@ -20,7 +20,7 @@ export const grocerydata = createAsyncThunk("grocerydata", async (formData) => {
       body: JSON.stringify(formData),
     });
     const data = await result.json();
-    console.log(data);
+
     return data;
   } catch (error) {
     return { error: error.message };

@@ -14,26 +14,34 @@ exports.createGrocery = async (req, res) => {
       image,
     } = formData;
 
-    const mycloud = await cloudinary.v2.uploader.upload(image, {
-      folder: "Food",
-    });
+    if (image !== null) {
+      const mycloud = await cloudinary.v2.uploader.upload(image, {
+        folder: "Food",
+      });
+    }
 
     if (!formData.groceryName) {
-      return res.status(400).json({ error: "Grocery name is required.",success:false  });
+      return res
+        .status(400)
+        .json({ error: "Grocery name is required.", success: false });
     }
 
     if (!formData.groceryDescription) {
       return res
         .status(400)
-        .json({ error: "Grocery Description  is required.",success:false });
+        .json({ error: "Grocery Description  is required.", success: false });
     }
 
     if (!formData.quantity) {
-      return res.status(400).json({ error: "Grocery quantity  is required.",success:false  });
+      return res
+        .status(400)
+        .json({ error: "Grocery quantity  is required.", success: false });
     }
 
     if (!formData.unit) {
-      return res.status(400).json({ error: "Grocery unit  is required." ,success:false });
+      return res
+        .status(400)
+        .json({ error: "Grocery unit  is required.", success: false });
     }
 
     const newGrocery = new Grocery({
@@ -42,14 +50,14 @@ exports.createGrocery = async (req, res) => {
       quantityAvailable: quantity,
       pricePerUnit: unit,
       expiryDate: expiryDate,
-      groceryPhoto: {
+      groceryPhoto: image !== null && {
         secure_url: mycloud.secure_url,
         public_id: mycloud.public_id,
       },
     });
 
     const savedGrocery = await newGrocery.save();
-    res.status(201).json({data:savedGrocery,success:true});
+    res.status(201).json({ data: savedGrocery, success: true });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -60,9 +68,9 @@ exports.createGrocery = async (req, res) => {
 exports.getAllGroceries = async (req, res) => {
   try {
     const groceries = await Grocery.find();
-    res.status(200).json({data:groceries,success:true});
+    res.status(200).json({ data: groceries, success: true });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" ,success:false});
+    res.status(500).json({ error: "Internal Server Error", success: false });
   }
 };

@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { grocerydata, getgrocerydata } from "../Reducers/grocery.js";
 
 const Dash = () => {
-
   const [addFoodInput, setAddFoodInput] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [groceries, setGroceries] = useState({});
@@ -34,9 +33,17 @@ const Dash = () => {
     dispatch(getgrocerydata());
   }, []);
 
-  const { allgrocery, successallgrocery } = useSelector(
+  const { allgrocery, successallgrocery,creategrocery ,currentgrocery} = useSelector(
     (state) => state.grocery
   );
+
+
+
+  useEffect(() => {
+    if(creategrocery)
+    dispatch(getgrocerydata());
+  }, [creategrocery]);
+  
 
   useEffect(() => {
     if (successallgrocery) {
@@ -45,6 +52,7 @@ const Dash = () => {
   }, [successallgrocery, allgrocery]);
 
   const handleSubmit = () => {
+    setAddFoodInput(false);
     dispatch(grocerydata(formData));
   };
 
@@ -68,10 +76,8 @@ const Dash = () => {
     ? groceries.filter((grocery) => {
         const lowerCaseQuery = searchQuery.toLowerCase();
 
-        // Check if grocery.groceryName is defined before using toLowerCase
         const groceryNameMatch =
-          grocery.groceryName &&
-          grocery.groceryName.toLowerCase().includes(lowerCaseQuery);
+          grocery.name && grocery.name.toLowerCase().includes(lowerCaseQuery);
 
         return groceryNameMatch;
       })
@@ -119,10 +125,10 @@ const Dash = () => {
         <hr className="w-screen border-t border-gray-500 mt-2 lg:mt-0" />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full p-6">
           {searchQuery ? (
-
             filteredGroceries.length > 0 ? (
               filteredGroceries.map((grocery) => (
                 <div key={grocery._id}>
+
                   <GroceryCard
                     id={grocery._id}
                     dull={addFoodInput}
@@ -136,7 +142,9 @@ const Dash = () => {
                 </div>
               ))
             ) : (
-              <p className="text-white w-full text-3xl">No matching grocery found</p>
+              <p className="text-white w-full text-3xl">
+                No matching grocery found
+              </p>
             )
           ) : // If searchQuery is empty, use all grocerys
           groceries && Array.isArray(groceries) && groceries.length > 0 ? (

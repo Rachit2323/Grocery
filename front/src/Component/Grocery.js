@@ -51,7 +51,7 @@ const GroceryCard = ({
           <p className="text-gray-600">Quantity: {quantity}</p>
           <p className="text-gray-600">Price per Unit: {price}</p>
 
-          <p className="text-gray-600">Expiry: {formattedExpiryDate}</p>
+         {expiryDate&&( <p className="text-gray-600">Expiry: {formattedExpiryDate}</p>)}
         </div>
       </div>
     </div>
