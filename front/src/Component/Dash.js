@@ -38,7 +38,7 @@ const Dash = () => {
   const { allgrocery, successallgrocery, creategrocery, currentgrocery ,groceryerror} =
     useSelector((state) => state.grocery);
    
-    console.log(creategrocery,groceryerror);
+
 
     
   useEffect(() => {
