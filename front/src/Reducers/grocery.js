@@ -8,10 +8,27 @@ let initialState = {
   allgrocery: {},
   creategrocery: false,
   currentgrocery: {},
+  groceryerror:""
 };
 
 export const grocerydata = createAsyncThunk("grocerydata", async (formData) => {
   try {
+
+    console.log(formData,formData.groceryName); 
+    if(!formData.groceryName)
+    return ({ error: "Grocery name is required.", success: false });
+
+    else if(!formData.groceryDescription)
+    return ({ error: "Grocery Description is required.", success: false });
+
+    else if(!formData.quantity)
+    return ({ error: "Grocery quantity is required.", success: false });
+  
+    else if(!formData.unit)
+    return ({ error: "Grocery unit is required.", success: false });
+
+  
+
     const result = await fetch(`${API}grocery/create`, {
       method: "POST",
       headers: {
@@ -57,6 +74,7 @@ const grocerySlice = createSlice({
 
         if (action.payload.error) {
           state.creategrocery = action.payload.success;
+          state.groceryerror=action.payload.error;
         } else {
           state.creategrocery = action.payload.success;
           state.currentgrocery = action.payload.data;

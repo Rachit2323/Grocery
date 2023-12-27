@@ -6,6 +6,8 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { grocerydata, getgrocerydata } from "../Reducers/grocery.js";
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Dash = () => {
   const [addFoodInput, setAddFoodInput] = useState(false);
@@ -33,17 +35,17 @@ const Dash = () => {
     dispatch(getgrocerydata());
   }, []);
 
-  const { allgrocery, successallgrocery,creategrocery ,currentgrocery} = useSelector(
-    (state) => state.grocery
-  );
+  const { allgrocery, successallgrocery, creategrocery, currentgrocery ,groceryerror} =
+    useSelector((state) => state.grocery);
+   
+    console.log(creategrocery,groceryerror);
 
-
-
+    
   useEffect(() => {
-    if(creategrocery)
-    dispatch(getgrocerydata());
-  }, [creategrocery]);
-  
+    if (creategrocery) dispatch(getgrocerydata());
+    else if(!creategrocery&&groceryerror!=='')
+    toast.error(groceryerror);
+  }, [creategrocery,groceryerror]);
 
   useEffect(() => {
     if (successallgrocery) {
@@ -54,6 +56,14 @@ const Dash = () => {
   const handleSubmit = () => {
     setAddFoodInput(false);
     dispatch(grocerydata(formData));
+    setFormData({
+      groceryName: "",
+      groceryDescription: "",
+      quantity: 0,
+      unit: 0,
+      expiryDate: "",
+      image: null,
+    });
   };
 
   const handleImageUpload = (e) => {
@@ -128,7 +138,6 @@ const Dash = () => {
             filteredGroceries.length > 0 ? (
               filteredGroceries.map((grocery) => (
                 <div key={grocery._id}>
-
                   <GroceryCard
                     id={grocery._id}
                     dull={addFoodInput}
@@ -169,7 +178,7 @@ const Dash = () => {
       </div>
 
       {addFoodInput && (
-        <div className="bg-gray-700 fixed overflow-y-auto max-h-screen mb-8 w-1/2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-3 box-sizing-border rounded-xl">
+        <div className="bg-gray-700 fixed overflow-y-auto max-h-screen mb-8 w-3/4 lg:w-1/2 xl:w-1/2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-3 box-sizing-border rounded-xl">
           <button
             className="absolute top-0 right-0 m-4 p-2 text-gray-400 hover:text-gray-200 cursor-pointer"
             onClick={handleCloseAddFood}
@@ -180,7 +189,7 @@ const Dash = () => {
             <div className="flex w-full gap-4 justify-between items-center">
               <label
                 htmlFor="groceryName"
-                className="block font-medium text-gray-300 text-lg mb-2 w-1/4"
+                className="block font-medium text-gray-300 text-sm  lg:text-lg xl:text-lg mb-2 w-1/4"
               >
                 Grocery Name
               </label>
@@ -198,7 +207,7 @@ const Dash = () => {
             <div className="flex w-full gap-4 justify-between items-center">
               <label
                 htmlFor="groceryDescription"
-                className="block font-medium text-gray-300 text-lg mb-2 w-1/4"
+                className="block font-medium text-gray-300 text-sm  lg:text-lg xl:text-lg mb-2 w-1/4"
               >
                 Description
               </label>
@@ -215,7 +224,7 @@ const Dash = () => {
             <div className="flex w-full gap-4 justify-between items-center">
               <label
                 htmlFor="groceryphoto"
-                className="block font-medium text-gray-300 text-lg mb-2 w-1/4"
+                className="block font-medium text-gray-300 text-sm  lg:text-lg xl:text-lg mb-2 w-1/4"
               >
                 Photo (Optional)
               </label>
@@ -231,7 +240,7 @@ const Dash = () => {
             <div className="flex w-full gap-4">
               <label
                 htmlFor="quantity"
-                className="block font-medium text-gray-300 text-lg mb-2 w-1/4"
+                className="block font-medium text-gray-300 text-sm  lg:text-lg xl:text-lg mb-2 w-1/4"
               >
                 Quantity
               </label>
@@ -250,7 +259,7 @@ const Dash = () => {
             <div className="flex w-full gap-4">
               <label
                 htmlFor="unit"
-                className="block font-medium text-gray-300 text-lg mb-2 w-1/4"
+                className="block font-medium text-gray-300 text-sm  lg:text-lg xl:text-lg mb-2 w-1/4"
               >
                 Price per unit
               </label>
@@ -269,7 +278,7 @@ const Dash = () => {
             <div className="flex w-full gap-4">
               <label
                 htmlFor="expiryDate"
-                className="block font-medium text-gray-300 text-lg mb-2 w-1/4"
+                className="block font-medium text-gray-300 text-sm  lg:text-lg xl:text-lg mb-2 w-1/4"
               >
                 Expiry date (Optional)
               </label>
@@ -292,6 +301,7 @@ const Dash = () => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </>
   );
 };
