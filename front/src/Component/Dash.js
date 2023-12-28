@@ -111,7 +111,7 @@ const Dash = () => {
         <div className="flex w-full items-center justify-center mb-4 lg:mb-0">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search...(Grocery Name)"
             className="py-2 px-3 w-1/2 focus:outline-none border-gray-300 rounded border ml-2"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
