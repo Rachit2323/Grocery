@@ -12,9 +12,9 @@ exports.createGrocery = async (req, res) => {
       expiryDate,
       image,
     } = formData;
-
+    let mycloud; 
     if (image !== null) {
-      const mycloud = await cloudinary.v2.uploader.upload(image, {
+       mycloud = await cloudinary.v2.uploader.upload(image, {
         folder: "Food",
       });
     }
