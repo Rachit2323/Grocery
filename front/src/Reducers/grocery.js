@@ -14,7 +14,7 @@ let initialState = {
 export const grocerydata = createAsyncThunk("grocerydata", async (formData) => {
   try {
 
-    console.log(formData,formData.groceryName); 
+
     if(!formData.groceryName)
     return ({ error: "Grocery name is required.", success: false });
 

@@ -24,11 +24,18 @@ const Dash = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    if ((name==='unit'||name === 'quantity') && parseFloat(value) < 0) {
+      e.target.style.borderColor = 'red';
+      return;
+    }
+  
+    e.target.style.borderColor = ''; 
     setFormData({
       ...formData,
       [name]: value,
     });
   };
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -245,15 +252,15 @@ const Dash = () => {
                 Quantity
               </label>
               <input
-                type="number"
-                min="0"
-                pattern="[0-9]*"
-                id="quantity"
-                name="quantity"
-                className="border rounded-md outline-none p-2 w-3/4"
-                value={formData.quantity}
-                onChange={handleInputChange}
-              />
+        type="number"
+        min="0"
+        pattern="[0-9]*"
+        id="quantity"
+        name="quantity"
+        className="border rounded-md outline-none p-2 w-3/4"
+        value={formData.quantity}
+        onChange={handleInputChange}
+      />
             </div>
 
             <div className="flex w-full gap-4">
