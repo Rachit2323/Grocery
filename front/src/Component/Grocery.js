@@ -51,7 +51,7 @@ const GroceryCard = ({
             <span className="text-gray-500">{groceryDescription}</span>
           </p>
           <p className="text-gray-900">
-            Quantity:<span className="text-gray-500"></span> {quantity}
+            Quantity:<span className="text-gray-500">{quantity}</span> 
           </p>
           <p className="text-gray-900">
             Price per Unit: <span className="text-gray-500">{price}</span>
