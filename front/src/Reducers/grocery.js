@@ -92,10 +92,10 @@ const grocerySlice = createSlice({
         state.loading = false;
 
         if (action.payload.error) {
-          // state.errorsignup = action.payload.error;
+
           state.successallgrocery = action.payload.success;
         } else {
-          // state.errorsignup = action.payload.message;
+
           state.successallgrocery = action.payload.success;
           state.allgrocery = action.payload.data;
         }

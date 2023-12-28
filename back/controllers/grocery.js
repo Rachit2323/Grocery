@@ -4,7 +4,6 @@ const cloudinary = require("cloudinary");
 exports.createGrocery = async (req, res) => {
   try {
     const formData = req.body;
-
     const {
       groceryName,
       groceryDescription,
