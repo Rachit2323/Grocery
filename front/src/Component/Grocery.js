@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 const GroceryCard = ({
-
   dull,
   quantity,
   groceryDescription,
@@ -47,11 +46,23 @@ const GroceryCard = ({
         </div>
 
         <div className="flex  flex-col justify-between mt-2">
-          <p className="text-gray-600">Description: {groceryDescription}</p>
-          <p className="text-gray-600">Quantity: {quantity}</p>
-          <p className="text-gray-600">Price per Unit: {price}</p>
+          <p className="text-gray-900">
+            Description:{" "}
+            <span className="text-gray-500">{groceryDescription}</span>
+          </p>
+          <p className="text-gray-900">
+            Quantity:<span className="text-gray-500"></span> {quantity}
+          </p>
+          <p className="text-gray-900">
+            Price per Unit: <span className="text-gray-500">{price}</span>
+          </p>
 
-         {expiryDate&&( <p className="text-gray-600">Expiry: {formattedExpiryDate}</p>)}
+          {expiryDate && (
+            <p className="text-gray-900">
+              Expiry:{" "}
+              <span className="text-gray-500">{formattedExpiryDate} </span>
+            </p>
+          )}
         </div>
       </div>
     </div>
