@@ -5,9 +5,7 @@ const cors = require("cors");
 const app = express();
 const cloudinary = require("cloudinary");
 
-
 const groceryRoutes =require("./router/grocery.js");
-
 const URI =
   "mongodb+srv://Rachit23:UhP8Iiyp4xxptvmM@cluster0.fgnb20h.mongodb.net/market";
 // const URI="mongodb://localhost:27017/market";
@@ -47,7 +45,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Connected to MongoDB");
+    console.log("Connected to Mongo DB");
   })
   .catch((err) => {
     console.error("MongoDB connection error:", err);
